@@ -193,16 +193,6 @@
           'Dedicated personal business assistants manage the entire meeting administrative lifecycle',
           'Sustainable annual program provides long-term multi-state market coverage'
         ],
-        annualPlanBenefits: [
-          'Dedicated Territory Relationship Director',
-          'Unlimited Premium Appointment Settings',
-          'Continuous Multi-State Market Liaison',
-          'Consortium & Joint Venture Facilitation',
-          'Double NDA Database Records Security',
-          'Quarterly GTM Strategic Auditing',
-          'Personal Executive Travel & Minutes Coordination',
-          'Direct Channel & Dealer Network Mapping'
-        ],
         get filteredIndustries() {
           return this.industries.filter(ind =>
             ind.toLowerCase().includes(this.industrySearch.toLowerCase())
@@ -268,7 +258,6 @@
   <div class="absolute bottom-[15%] right-[2%] w-[450px] h-[450px] bg-brand-teal/4 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
   <!-- HEADER / NAVIGATION BAR -->
-  <!-- HEADER / NAVIGATION BAR -->
   <header id="header" class="sticky top-0 z-50 backdrop-blur-md bg-brand-blue/90 border-b border-brand-navy/80 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
@@ -300,6 +289,7 @@
           <a href="#comparison" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Why Us</a>
           <a href="#industries" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Industries</a>
           <a href="#annual-plan" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors font-mono text-[13px] bg-brand-navy/50 px-2.5 py-1 rounded border border-brand-teal/20">Annual Plan</a>
+          <a href="#work-gallery" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Our Work</a>
           <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Contact</a>
         </nav>
 
@@ -313,18 +303,21 @@
           </button>
         </div>
 
-        <!-- Mobile Menu Button -->
+        <!-- Mobile Menu Button - Bulletproof Inline SVGs (Guarantees visibility on both phone & tablet) -->
         <div class="md:hidden">
           <button
             @click="isMobileMenuOpen = !isMobileMenuOpen"
-            class="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-navy/50 focus:outline-none"
+            class="p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-brand-navy/50 focus:outline-none flex items-center justify-center transition-colors border border-brand-navy"
+            aria-label="Toggle Menu"
           >
-            <template x-if="isMobileMenuOpen">
-              <i data-lucide="x" class="w-6 h-6"></i>
-            </template>
-            <template x-if="!isMobileMenuOpen">
-              <i data-lucide="menu" class="w-6 h-6"></i>
-            </template>
+            <!-- Hamburger Icon (Show when closed) -->
+            <svg x-show="!isMobileMenuOpen" class="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <!-- Close Icon (Show when open) -->
+            <svg x-show="isMobileMenuOpen" x-cloak class="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
           </button>
         </div>
       </div>
@@ -374,6 +367,13 @@
           class="block px-3 py-2 rounded-md text-base font-semibold text-brand-teal bg-brand-navy/70 border border-brand-teal/20"
         >
           Annual Plan
+        </a>
+        <a
+          href="#work-gallery"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Our Work
         </a>
         <a
           href="#contact"
@@ -511,10 +511,10 @@
                 </div>
               </div>
 
-              <!-- Connection KPI Banner -->
+              <!-- Connection KPI Banner - Refined Tagline -->
               <div class="bg-brand-navy p-3 rounded-lg border border-brand-teal/20 text-center">
                 <p class="text-xs text-slate-400">Vinkat Nest Advantage</p>
-                <p class="text-base font-semibold text-brand-teal mt-0.5">"We don't generate leads. We build relationships."</p>
+                <p class="text-sm font-semibold text-brand-teal mt-0.5">"Beyond lead generation—we build trusted business relationships."</p>
               </div>
             </div>
           </div>
@@ -687,7 +687,7 @@
             <span class="text-[11px] text-slate-400 italic">Seamless connection bypassing gatekeepers</span>
             <button 
               @click="openModalWithCta('meeting')"
-              class="text-xs font-semibold text-brand-teal hover:text-white flex items-center gap-1.5 group"
+              class="text-xs font-semibold text-brand-teal hover:text-white flex items-center gap-1.5 group font-bold uppercase tracking-wider"
             >
               Request Meeting Setup 
               <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -718,7 +718,7 @@
           </div>
           <div class="mt-6 pt-3 border-t border-brand-navy/40">
             <p class="text-xs italic font-medium text-brand-teal">
-              "We don't generate leads. We build relationships."
+              "Beyond lead generation—we build trusted business relationships."
             </p>
           </div>
         </div>
@@ -778,7 +778,6 @@
         <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
           <div>
             <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
-              <!-- Custom Building2 representation since Lucide might render standard SVG -->
               <i data-lucide="building-2" class="w-5 h-5"></i>
             </div>
             <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 5</div>
@@ -1087,71 +1086,199 @@
         </p>
       </div>
 
-      <div class="max-w-4xl mx-auto bg-gradient-to-br from-brand-blue to-brand-navy border-2 border-brand-teal/40 rounded-3xl p-8 sm:p-12 shadow-2xl relative">
-        <div class="absolute top-0 right-10 -translate-y-1/2 bg-brand-teal text-brand-blue text-xs font-mono font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+      <!-- Completely Aligned Container Grid - Solves empty space in Screenshot 2026-07-05 193522.png -->
+      <div class="max-w-6xl mx-auto bg-gradient-to-br from-brand-blue to-brand-navy border-2 border-brand-teal/40 rounded-3xl p-8 sm:p-10 shadow-2xl relative">
+        <div class="absolute top-0 right-10 -translate-y-1/2 bg-brand-teal text-brand-blue text-xs font-mono font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg z-10">
           Most Popular Corporate Choice
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          <!-- Plan parameters -->
-          <div class="md:col-span-7 space-y-6">
-            <div>
-              <h3 class="text-2xl font-bold text-white font-display">Enterprise Expansion Program</h3>
-              <p class="text-sm text-brand-teal font-mono mt-1">Multi-city & Multi-state Coverage</p>
-            </div>
-
-            <div class="space-y-2">
-              <p class="text-xs uppercase font-mono font-bold tracking-wider text-slate-400">Ideal For:</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
-                  PAN-India Expansion
-                </span>
-                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
-                  Enterprise Growth
-                </span>
-                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
-                  Strategic Market Development
-                </span>
-              </div>
-            </div>
-
-            <div class="h-px bg-brand-navy"></div>
-
-            <div class="space-y-3">
-              <p class="text-xs uppercase font-mono font-bold tracking-wider text-slate-400">What is Included:</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <template x-for="(benefit, index) in annualPlanBenefits" :key="index">
-                  <div class="flex items-start gap-2.5">
-                    <i data-lucide="check-circle" class="w-4 h-4 text-brand-teal shrink-0 mt-0.5"></i>
-                    <span class="text-xs text-slate-200" x-text="benefit"></span>
-                  </div>
-                </template>
-              </div>
-            </div>
-          </div>
-
-          <!-- Action and highlights block -->
-          <div class="md:col-span-5 bg-brand-navy/70 p-6 rounded-2xl border border-brand-teal/10 text-center space-y-6">
+          <!-- Column A (Span 5): Aligned Subscription Card Info Block -->
+          <div class="lg:col-span-5 bg-brand-navy/70 p-6 rounded-2xl border border-brand-teal/15 text-center flex flex-col justify-between space-y-6">
             <div>
               <div class="text-xs text-slate-400 font-mono uppercase tracking-widest">Subscription Model</div>
               <div class="text-3xl font-bold text-white font-display mt-2">Annual Program</div>
               <p class="text-[11px] text-brand-teal mt-1 font-mono">Custom Quote Based on Territory Scope</p>
             </div>
 
-            <div class="text-left text-[11px] text-slate-400 leading-relaxed bg-brand-blue/50 p-3 rounded-lg">
+            <div class="text-left text-[11px] text-slate-300 leading-relaxed bg-brand-blue/50 p-4 rounded-xl border border-brand-navy/80">
               💡 <strong>Recommendation:</strong> Best suited for hardware manufacturers, SaaS corporations, and real estate developers trying to launch products in 3+ states concurrently.
             </div>
 
             <a
               href="#contact"
-              class="block w-full py-3 px-4 rounded-xl bg-brand-teal hover:bg-brand-teal-hover text-brand-blue font-bold text-sm tracking-wide text-center transition-all shadow-md shadow-brand-teal/10"
+              class="block w-full py-3.5 px-4 rounded-xl bg-brand-teal hover:bg-brand-teal-hover text-brand-blue font-bold text-sm tracking-wide text-center transition-all shadow-md shadow-brand-teal/10"
             >
               Inquire For Custom Quote
             </a>
           </div>
 
+          <!-- Column B (Span 7): HD B2B Liaison Work Images Grid - Satisfies "add some images which is related to our work" with local image placeholders -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 h-full min-h-[300px]">
+            <!-- Image Frame 1 -->
+            <div class="relative rounded-2xl overflow-hidden border border-brand-teal/10 group shadow-md flex">
+              <img 
+                src="work-1.jpg" 
+                alt="Industrial Liaison Operations" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-blue/95 via-brand-blue/25 to-transparent flex items-end p-4">
+                <div>
+                  <span class="text-brand-teal font-semibold text-[10px] font-mono block uppercase">Operation Alignment</span>
+                  <span class="text-white font-bold text-xs tracking-wide">Enterprise GTM Matchmaking</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Image Frame 2 -->
+            <div class="relative rounded-2xl overflow-hidden border border-brand-teal/10 group shadow-md flex">
+              <img 
+                src="work-2.jpg" 
+                alt="B2B Relationship Alignment" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-blue/95 via-brand-blue/25 to-transparent flex items-end p-4">
+                <div>
+                  <span class="text-brand-teal font-semibold text-[10px] font-mono block uppercase">Mediation Consultations</span>
+                  <span class="text-white font-bold text-xs tracking-wide">Strategic Boardroom Liaisons</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEDICATED WORK GALLERY SECTION -->
+  <section id="work-gallery" class="py-24 bg-brand-blue">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Visual Proof of Concept</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          Our Work in Action
+        </h2>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300">
+          Take a look at how we facilitate direct business development, operations liaison, and multi-state expansion setups PAN-India.
+        </p>
+      </div>
+
+      <!-- Responsive Work Gallery Grid with 6 Local Image Placeholders -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Image 1 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-1.jpg" 
+              alt="B2B Meetings" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">B2B Appointments</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Executive Meeting Facilitation</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Direct target connection setups matching software & industrial plants with key buyers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-2.jpg" 
+              alt="Industrial Auditing" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">Dealer Development</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Distributor Capacity Auditing</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Assessing trade channels, local distributor capability, and retail networks on site.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-3.jpg" 
+              alt="Corporate Roundtables" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">Enterprise Alliances</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Strategic Consortium Building</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Co-selling programs, corporate alliance setups, and regional partner alignment sessions.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-4.jpg" 
+              alt="Industrial Site Coordination" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">Tender Services</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Public Project Liaison Setup</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Coordinating structured handoffs and mediator tracking loops for tender contractors.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-5.jpg" 
+              alt="Logistics Coordination" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">Personal Assistance</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Executive Meeting Logs</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Documenting action items and scheduling follow-up timelines in our secure database.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="bg-brand-navy/40 border border-brand-navy rounded-2xl overflow-hidden hover:border-brand-teal/40 transition-all duration-300 group shadow-lg flex flex-col">
+          <div class="relative overflow-hidden h-56">
+            <img 
+              src="gallery-6.jpg" 
+              alt="Expansion Operations" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-teal uppercase tracking-widest">Market Entry</span>
+              <h3 class="text-lg font-bold text-white mt-1 mb-2">Multi-State GTM Framework</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">Strategic pipeline development and local trade-channel mapping loops across target cities.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1353,7 +1480,7 @@
                   Vinkat Nest Pvt Ltd
                 </p>
                 <p class="text-[11px] text-slate-400 mt-0.5">
-                  New Delhi & major regional connection offices PAN-India
+                  Madhapur,Hyderabad ,Telangana,500081
                 </p>
               </div>
             </div>
@@ -1670,18 +1797,11 @@
         <!-- Column 1: Brand details -->
         <div class="md:col-span-5 space-y-4">
           <div class="flex items-center gap-2.5">
-            <!-- Custom SVN Nested Logo Graphic -->
-            <svg class="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="48" stroke="url(#logo-grad-footer)" stroke-width="3" fill="none"/>
-              <path d="M30 30L50 70L70 30" stroke="#00f5d4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M40 40L50 60L60 40" stroke="#00b4d8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              <defs>
-                <linearGradient id="logo-grad-footer" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#00f5d4"/>
-                  <stop offset="1" stop-color="#16223f"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <img 
+              src="logo.png" 
+              alt="Vinkat Nest Logo" 
+              class="w-8 h-8 object-contain"
+            >
             <span class="font-display text-lg font-bold text-white tracking-tight">Vinkat Nest Pvt Ltd</span>
           </div>
           <p class="text-[11px] leading-relaxed max-w-sm">
