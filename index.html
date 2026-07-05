@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinkat Nest - B2B Market Expansion & Relationship Platform</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#0a1128',
+            'brand-navy': '#16223f',
+            'brand-teal': '#00f5d4',
+            'brand-teal-hover': '#00e0c2',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom utility animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    [x-cloak] { display: none !important; }
+  </style>
+
+  <!-- Alpine.js CDN for interactive state management -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-brand-blue text-white selection:bg-brand-teal selection:text-brand-blue overflow-x-hidden font-sans antialiased"
+      x-data="{
+        isMobileMenuOpen: false,
+        industrySearch: '',
+        service1ActiveTab: 'sellers',
+        isBookingModalOpen: false,
+        modalCtaType: 'consultation',
+        formSubmitted: false,
+        lastFormWhatsappUrl: '',
+        formData: {
+          fullName: '',
+          email: '',
+          phone: '',
+          companyName: '',
+          industry: '',
+          consultationType: 'Book a Consultation',
+          preferredDate: '',
+          preferredTime: '',
+          message: ''
+        },
+        modalSubmitted: false,
+        lastModalWhatsappUrl: '',
+        modalFormData: {
+          fullName: '',
+          email: '',
+          phone: '',
+          companyName: '',
+          preferredDate: '',
+          preferredTime: '',
+          message: ''
+        },
+        industries: [
+          'Construction',
+          'Infrastructure',
+          'Manufacturing',
+          'Building Materials',
+          'Real Estate',
+          'Information Tech',
+          'SaaS',
+          'Healthcare',
+          'Logistics',
+          'Smart Cities / Airports',
+          'Electrical & Power',
+          'HVAC & Plumbing',
+          'Heavy Machinery',
+          'Consumables & Retail',
+          'Corporate Services',
+          'Interior Design & Fit-Outs',
+          'Renewable Energy',
+          'Security & Surveillance'
+        ],
+        servicesData: [
+          {
+            items: [
+              'Manufacturers & OEM Plants',
+              'Industrial Equipment Suppliers',
+              'Software & SaaS Companies',
+              'Enterprise Service Providers',
+              'Corporate Growth Consultants',
+              'Infrastructure Developers'
+            ],
+            secondaryItems: [
+              'Builders & Real Estate Developers',
+              'Architects & Design Consultants',
+              'Corporate CXOs & CFOs',
+              'Government Procurement Directors',
+              'Purchase & Material Managers',
+              'Retailers & Franchisors'
+            ]
+          },
+          {
+            items: [
+              'Continuous Post-Meeting Nurturing',
+              'Systematic Follow-up Planning',
+              'Stakeholder Feedback Aggregation',
+              'Relational Contract Tracking'
+            ]
+          },
+          {
+            items: [
+              'Executive Travel & Logistical Aid',
+              'Meeting Minutes & Summary Documentation',
+              'Action-Item Follow-up Schedules',
+              'Back-Office Administrative Coordination'
+            ]
+          },
+          {
+            items: [
+              'Delhi NCR & Northern Region Hubs',
+              'Mumbai, Pune & Western India',
+              'Bangalore & Southern Corridors (Expanding)',
+              'Hyderabad & Eastern Belts (Future)'
+            ]
+          },
+          {
+            items: [
+              'Local Sales Partner Identification',
+              'Dealer Capacity & Credential Auditing',
+              'Distributor Onboarding Facilitation',
+              'Regional Trade Channel Strengthening'
+            ]
+          },
+          {
+            items: [
+              'Franchise Model Design & Standardizing',
+              'Investor/Franchisee Scouting & Auditing',
+              'Demographic & Footfall Suitability Reviews',
+              'Standardized Operational Onboarding Support'
+            ]
+          },
+          {
+            items: [
+              'Strategic Co-Selling Frameworks',
+              'Multi-Tier Channel Incentive Models',
+              'Partner Competency & Alignment Training',
+              'Joint GTM Alliance Programs'
+            ]
+          },
+          {
+            items: [
+              'Corporate GTM Playbook Development',
+              'Pricing & Package Positioning Audits',
+              'B2B Pitch Deck & Material Customization',
+              'Sales Pipeline Velocity Diagnostics'
+            ]
+          }
+        ],
+        traditionalMetrics: [
+          'In-house BD teams suffer from high employee turnover (average < 9 months tenure)',
+          'Standard lead agencies deliver low-intent contact spreadsheets with outdated data',
+          'Mass cold-emailing/spam calls damage your corporate reputation and yield zero CXO interest',
+          'Gatekeepers block access to key decision-makers, keeping your sales cycle stalled',
+          'No structural follow-up system; once a meeting is done, the relationship goes cold'
+        ],
+        vinkatMetrics: [
+          'Experienced relationship coordinators handle initial liaison and double NDA safeguards',
+          'Bypass gatekeepers to reach vetted, high-intent developers, builders, and CXOs directly',
+          'Continuous post-meeting nurturing and detailed documentation ensure pipeline velocity',
+          'Dedicated personal business assistants manage the entire meeting administrative lifecycle',
+          'Sustainable annual program provides long-term multi-state market coverage'
+        ],
+        annualPlanBenefits: [
+          'Dedicated Territory Relationship Director',
+          'Unlimited Premium Appointment Settings',
+          'Continuous Multi-State Market Liaison',
+          'Consortium & Joint Venture Facilitation',
+          'Double NDA Database Records Security',
+          'Quarterly GTM Strategic Auditing',
+          'Personal Executive Travel & Minutes Coordination',
+          'Direct Channel & Dealer Network Mapping'
+        ],
+        get filteredIndustries() {
+          return this.industries.filter(ind =>
+            ind.toLowerCase().includes(this.industrySearch.toLowerCase())
+          );
+        },
+        openModalWithCta(type) {
+          this.modalCtaType = type;
+          this.modalSubmitted = false;
+          let label = 'Book a Consultation';
+          if (type === 'meeting') label = 'Schedule a Business Meeting';
+          if (type === 'partner') label = 'Become a Business Partner';
+          this.formData.consultationType = label;
+          this.isBookingModalOpen = true;
+        },
+        handleFormSubmit(e) {
+          e.preventDefault();
+          if (!this.formData.fullName || !this.formData.email || !this.formData.phone) {
+            alert('Please fill in the required fields (Name, Email, and Phone) so we can schedule your appointment.');
+            return;
+          }
+          const msg = `*VINKAT NEST - ENTERPRISE RELATIONS REQUEST*\n\n*Full Name:* ${this.formData.fullName}\n*Business Email:* ${this.formData.email}\n*Phone Number:* ${this.formData.phone}\n*Company Name:* ${this.formData.companyName || 'Not Specified'}\n*Desired Action Objective:* ${this.formData.consultationType}\n*Industry Segment:* ${this.formData.industry || 'Not Specified'}\n*Preferred Date:* ${this.formData.preferredDate || 'Not Specified'}\n*Preferred Time:* ${this.formData.preferredTime || 'Any Time'}\n\n*Expansion Goals & Briefing Notes*:\n${this.formData.message || 'No additional notes provided.'}`;
+          const url = 'https://wa.me/917416048477?text=' + encodeURIComponent(msg);
+          this.lastFormWhatsappUrl = url;
+          this.formSubmitted = true;
+          window.location.href = url;
+        },
+        handleModalSubmit(e) {
+          e.preventDefault();
+          if (!this.modalFormData.fullName || !this.modalFormData.email || !this.modalFormData.phone) {
+            alert('Please fill in all required fields.');
+            return;
+          }
+          let label = 'Book a Consultation';
+          if (this.modalCtaType === 'meeting') label = 'Schedule a Business Meeting';
+          if (this.modalCtaType === 'partner') label = 'Become a Business Partner';
+          const msg = `*VINKAT NEST - NEW INQUIRY*\n\n*Full Name:* ${this.modalFormData.fullName}\n*Business Email:* ${this.modalFormData.email}\n*Phone Number:* ${this.modalFormData.phone}\n*Company Name:* ${this.modalFormData.companyName || 'Not Specified'}\n*Desired Action Objective:* ${label}\n*Preferred Date:* ${this.modalFormData.preferredDate || 'Not Specified'}\n*Preferred Time:* ${this.modalFormData.preferredTime || 'Any Time'}\n\n*Expansion Goals & Briefing Notes*:\n${this.modalFormData.message || 'No additional notes provided.'}`;
+          const url = 'https://wa.me/917416048477?text=' + encodeURIComponent(msg);
+          this.lastModalWhatsappUrl = url;
+          this.modalSubmitted = true;
+          window.location.href = url;
+        },
+        resetContactForm() {
+          this.formData = {
+            fullName: '',
+            email: '',
+            phone: '',
+            companyName: '',
+            industry: '',
+            consultationType: 'Book a Consultation',
+            preferredDate: '',
+            preferredTime: '',
+            message: ''
+          };
+          this.formSubmitted = false;
+        }
+      }"
+      x-init="lucide.createIcons(); $watch('service1ActiveTab', () => $nextTick(() => lucide.createIcons())); $watch('isBookingModalOpen', () => $nextTick(() => lucide.createIcons())); $watch('formSubmitted', () => $nextTick(() => lucide.createIcons())); $watch('modalSubmitted', () => $nextTick(() => lucide.createIcons()));">
+
+  <!-- BACKGROUND DECORATIONS -->
+  <div class="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-brand-navy/30 to-transparent pointer-events-none -z-10"></div>
+  <div class="absolute top-[10%] right-[5%] w-[400px] h-[400px] bg-brand-teal/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+  <div class="absolute top-[40%] left-[2%] w-[350px] h-[350px] bg-brand-teal/3 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+  <div class="absolute bottom-[15%] right-[2%] w-[450px] h-[450px] bg-brand-teal/4 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+
+  <!-- HEADER / NAVIGATION BAR -->
+  <!-- HEADER / NAVIGATION BAR -->
+  <header id="header" class="sticky top-0 z-50 backdrop-blur-md bg-brand-blue/90 border-b border-brand-navy/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo and Brand -->
+        <a href="#" class="flex items-center gap-3 group">
+          
+          <!-- BRAND LOGO IMAGE PLACEHOLDER -->
+          <img 
+            src="logo.png" 
+            alt="Vinkat Nest Logo" 
+            class="w-11 h-11 object-contain group-hover:scale-105 transition-transform duration-300"
+          >
+          
+          <div>
+            <span class="font-display text-xl font-bold tracking-tight text-white block group-hover:text-brand-teal transition-colors">
+              Vinkat Nest
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-brand-teal font-semibold block">
+              Pvt Ltd
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#about" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">About Us</a>
+          <a href="#services" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Services</a>
+          <a href="#tender-coordination" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Tender Services</a>
+          <a href="#comparison" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Why Us</a>
+          <a href="#industries" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Industries</a>
+          <a href="#annual-plan" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors font-mono text-[13px] bg-brand-navy/50 px-2.5 py-1 rounded border border-brand-teal/20">Annual Plan</a>
+          <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-brand-teal transition-colors">Contact</a>
+        </nav>
+
+        <!-- Desktop Action Button -->
+        <div class="hidden md:flex items-center gap-4">
+          <button
+            @click="openModalWithCta('consultation')"
+            class="px-5 py-2.5 rounded-lg bg-brand-teal text-brand-blue font-semibold text-sm hover:bg-brand-teal-hover hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md shadow-brand-teal/20 cursor-pointer"
+          >
+            Book Consultation
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button
+            @click="isMobileMenuOpen = !isMobileMenuOpen"
+            class="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-navy/50 focus:outline-none"
+          >
+            <template x-if="isMobileMenuOpen">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </template>
+            <template x-if="!isMobileMenuOpen">
+              <i data-lucide="menu" class="w-6 h-6"></i>
+            </template>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div x-show="isMobileMenuOpen" x-cloak class="md:hidden bg-brand-blue border-b border-brand-navy animate-fade-in">
+      <div class="px-4 pt-2 pb-6 space-y-3">
+        <a
+          href="#about"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          About Us
+        </a>
+        <a
+          href="#services"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Services
+        </a>
+        <a
+          href="#tender-coordination"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Tender Services
+        </a>
+        <a
+          href="#comparison"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Why Us
+        </a>
+        <a
+          href="#industries"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Industries Served
+        </a>
+        <a
+          href="#annual-plan"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2 rounded-md text-base font-semibold text-brand-teal bg-brand-navy/70 border border-brand-teal/20"
+        >
+          Annual Plan
+        </a>
+        <a
+          href="#contact"
+          @click="isMobileMenuOpen = false"
+          class="block px-3 py-2.5 rounded-md text-base font-medium text-slate-300 hover:text-brand-teal hover:bg-brand-navy/50"
+        >
+          Contact & Appointment
+        </a>
+        <div class="pt-2">
+          <button
+            @click="isMobileMenuOpen = false; openModalWithCta('consultation')"
+            class="w-full text-center px-4 py-3 rounded-lg bg-brand-teal text-brand-blue font-bold text-sm hover:bg-brand-teal-hover transition-colors shadow-lg"
+          >
+            Book Consultation
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative pt-10 pb-20 md:pt-16 md:pb-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content Column -->
+        <div class="lg:col-span-7 space-y-8 text-left">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-navy/80 border border-brand-teal/30 text-brand-teal text-xs font-semibold tracking-wider uppercase">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-teal animate-pulse"></i>
+            India's Premier B2B Expansion Platform
+          </div>
+
+          <!-- Title & Tagline -->
+          <div class="space-y-4">
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-none">
+              Your Growth Partner for <span class="text-brand-teal">Business Expansion</span>
+            </h1>
+            <p class="text-lg sm:text-xl font-medium text-brand-teal/90 italic tracking-wide">
+              "Connecting Businesses. Building Relationships. Accelerating Growth."
+            </p>
+          </div>
+
+          <!-- Core Paragraph description -->
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+            We help manufacturers, industrialists, software companies, service providers, and consultants expand into new markets by connecting them with the right decision-makers, channel partners, dealers, franchisees, and strategic business opportunities.
+          </p>
+
+          <!-- Action CTA buttons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            <button
+              @click="openModalWithCta('consultation')"
+              class="px-6 py-4 rounded-xl bg-brand-teal text-brand-blue font-bold tracking-wide hover:bg-brand-teal-hover hover:shadow-lg hover:shadow-brand-teal/20 transition-all text-center flex items-center justify-center gap-2 group cursor-pointer"
+            >
+              Book a Consultation
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <button
+              @click="openModalWithCta('meeting')"
+              class="px-6 py-4 rounded-xl bg-brand-navy hover:bg-brand-navy/80 text-white font-bold tracking-wide border border-brand-teal/40 hover:border-brand-teal transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <i data-lucide="calendar" class="w-4 h-4 text-brand-teal"></i>
+              Schedule a Business Meeting
+            </button>
+
+            <button
+              @click="openModalWithCta('partner')"
+              class="px-6 py-4 rounded-xl bg-transparent hover:bg-brand-navy/30 text-brand-teal font-bold tracking-wide border border-transparent hover:border-brand-teal/20 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <i data-lucide="users" class="w-4 h-4 text-brand-teal"></i>
+              Become a Business Partner
+            </button>
+          </div>
+
+          <!-- Stat Strips -->
+          <div class="grid grid-cols-3 gap-6 pt-6 border-t border-brand-navy/60 max-w-lg">
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-white font-display">8+</div>
+              <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Expert Services</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-white font-display">25+</div>
+              <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Industries Served</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-white font-display">PAN-IN</div>
+              <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">National Reach</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Graphic Column -->
+        <div class="lg:col-span-5 relative mt-8 lg:mt-0">
+          <div class="relative mx-auto max-w-[420px] rounded-2xl bg-gradient-to-br from-brand-navy to-brand-blue p-1.5 border border-brand-teal/20 shadow-2xl">
+            <!-- Decorative glow overlay -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-brand-teal/10 to-transparent rounded-2xl pointer-events-none"></div>
+            
+            <!-- Dashboard content representing the ecosystem -->
+            <div class="p-6 space-y-6">
+              <!-- Manufacturer/Seller Bubble -->
+              <div class="p-4 bg-brand-blue/50 rounded-xl border border-brand-teal/10 hover:border-brand-teal/30 transition-all">
+                <div class="flex items-start gap-3">
+                  <div class="p-2 rounded-lg bg-brand-teal/10 text-brand-teal">
+                    <i data-lucide="building" class="w-5 h-5"></i>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="text-xs uppercase tracking-wider font-semibold text-brand-teal">The Sellers</div>
+                    <p class="text-sm font-semibold text-white">Manufacturers, Industrialists & SaaS</p>
+                    <p class="text-xs text-slate-400">Seeking nationwide market validation & channel setup</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Connecting Arrow element -->
+              <div class="flex items-center justify-center -my-2">
+                <div class="h-8 w-0.5 bg-gradient-to-b from-brand-teal to-transparent relative">
+                  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-teal text-brand-blue p-1 rounded-full text-[10px] font-mono font-bold tracking-tight">
+                    VS
+                  </div>
+                </div>
+              </div>
+
+              <!-- Decision Maker Bubble -->
+              <div class="p-4 bg-brand-blue/50 rounded-xl border border-brand-teal/10 hover:border-brand-teal/30 transition-all">
+                <div class="flex items-start gap-3">
+                  <div class="p-2 rounded-lg bg-brand-teal/10 text-brand-teal">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="text-xs uppercase tracking-wider font-semibold text-brand-teal">The Buyers</div>
+                    <p class="text-sm font-semibold text-white">Builders, Architects & Corporate CXOs</p>
+                    <p class="text-xs text-slate-400">Connected with high-intent suppliers directly</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Connection KPI Banner -->
+              <div class="bg-brand-navy p-3 rounded-lg border border-brand-teal/20 text-center">
+                <p class="text-xs text-slate-400">Vinkat Nest Advantage</p>
+                <p class="text-base font-semibold text-brand-teal mt-0.5">"We don't generate leads. We build relationships."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION & MISSION SECTION -->
+  <section id="about" class="py-20 bg-brand-navy/40 border-y border-brand-navy">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Who We Are</h2>
+        <p class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          A Business Development, Market Expansion, and Relationship Management Company
+        </p>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300 max-w-2xl mx-auto pt-2">
+          Vinkat Nest Pvt Ltd helps organizations accelerate growth through strategic, long-term business connections and executive assistance. Our objective is simple: <strong>To become the trusted business growth partner for organizations seeking sustainable expansion.</strong>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Vision Card -->
+        <div class="relative p-8 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-navy border border-brand-navy shadow-xl hover:border-brand-teal/20 transition-all group overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-teal/5 rounded-full blur-2xl group-hover:bg-brand-teal/10 transition-colors"></div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-brand-teal/10 flex items-center justify-center text-brand-teal border border-brand-teal/20">
+              <i data-lucide="compass" class="w-6 h-6 stroke-[2]"></i>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white">Our Vision</h3>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-base sm:text-lg">
+            To become India's leading B2B Business Appointment, Relationship Management, and Market Expansion Platform, enabling organizations to build sustainable business relationships and accelerate growth through trusted connections.
+          </p>
+          <div class="mt-6 flex items-center gap-2 text-brand-teal text-xs font-mono tracking-wider uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-teal"></span>
+            India-Wide Focus
+          </div>
+        </div>
+
+        <!-- Mission Card -->
+        <div class="relative p-8 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-navy border border-brand-navy shadow-xl hover:border-brand-teal/20 transition-all group overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-teal/5 rounded-full blur-2xl group-hover:bg-brand-teal/10 transition-colors"></div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-brand-teal/10 flex items-center justify-center text-brand-teal border border-brand-teal/20">
+              <i data-lucide="target" class="w-6 h-6 stroke-[2]"></i>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white">Our Mission</h3>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-base sm:text-lg">
+            To help businesses expand into new markets by connecting them with the right decision-makers, building long-term relationships, and providing professional business support that delivers measurable growth.
+          </p>
+          <div class="mt-6 flex items-center gap-2 text-brand-teal text-xs font-mono tracking-wider uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-teal"></span>
+            Measurable Results
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Pillar Bullets -->
+      <div class="mt-12 bg-brand-navy/60 p-6 rounded-xl border border-brand-navy/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-brand-teal font-display font-bold text-lg mb-1">Market Entry</div>
+          <p class="text-xs text-slate-400">Enter cities, states, & sectors smoothly</p>
+        </div>
+        <div class="border-l border-brand-navy/80 pl-2">
+          <div class="text-brand-teal font-display font-bold text-lg mb-1">Decision Connections</div>
+          <p class="text-xs text-slate-400">Bypass gatekeepers to reach top CXOs</p>
+        </div>
+        <div class="border-l border-brand-navy/80 pl-2">
+          <div class="text-brand-teal font-display font-bold text-lg mb-1">Channel Setup</div>
+          <p class="text-xs text-slate-400">Establish dealer & retailer networks</p>
+        </div>
+        <div class="border-l border-brand-navy/80 pl-2">
+          <div class="text-brand-teal font-display font-bold text-lg mb-1">Post-Meeting Care</div>
+          <p class="text-xs text-slate-400">Continuous coordination & tracking</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THE 8 SERVICES SECTION -->
+  <section id="services" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Comprehensive Services</h2>
+        <p class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          8 Tailored Solutions for Corporate Growth
+        </p>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300">
+          Unlike traditional single-tactic lead agencies, we manage the entire client pipeline—from strategic market definition, custom channel development, and executive meeting setup to detailed documentation and long-term business nurturing.
+        </p>
+      </div>
+
+      <!-- Services Grid (8 Services) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        
+        <!-- SERVICE 1: FEATURED CARD -->
+        <div class="col-span-1 md:col-span-2 relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-brand-navy to-brand-blue border border-brand-teal/20 shadow-xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-brand-teal/15 flex items-center justify-center text-brand-teal border border-brand-teal/30">
+                <i data-lucide="network" class="w-6 h-6"></i>
+              </div>
+              <span class="text-xs font-mono font-semibold text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded">
+                Service 1 • Featured
+              </span>
+            </div>
+
+            <h3 class="font-display text-2xl font-bold text-white mb-2">B2B Appointment Setting</h3>
+            <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+              We arrange qualified business meetings between sellers and the right business decision-makers. Explore who we connect in our network below:
+            </p>
+
+            <!-- Interactive Connection Tabs -->
+            <div class="flex bg-brand-blue/80 p-1.5 rounded-lg border border-brand-navy/80 mb-4 max-w-sm">
+              <button
+                @click="service1ActiveTab = 'sellers'"
+                :class="service1ActiveTab === 'sellers' ? 'bg-brand-teal text-brand-blue shadow-sm' : 'text-slate-300 hover:text-white'"
+                class="flex-1 py-1.5 text-xs font-semibold rounded-md transition-all"
+              >
+                We Represent (Sellers)
+              </button>
+              <button
+                @click="service1ActiveTab = 'decisionMakers'"
+                :class="service1ActiveTab === 'decisionMakers' ? 'bg-brand-teal text-brand-blue shadow-sm' : 'text-slate-300 hover:text-white'"
+                class="flex-1 py-1.5 text-xs font-semibold rounded-md transition-all"
+              >
+                We Reach (Decision Makers)
+              </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="bg-brand-navy/40 p-4 rounded-xl border border-brand-navy/60 min-h-[180px] max-h-[300px] overflow-y-auto">
+              <!-- Represent Sellers -->
+              <div x-show="service1ActiveTab === 'sellers'" class="animate-fade-in">
+                <div class="text-xs font-mono font-bold uppercase text-brand-teal mb-2.5">Sellers Connected:</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <template x-for="(item, idx) in servicesData[0].items" :key="idx">
+                    <div class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors">
+                      <i data-lucide="check-square" class="w-3.5 h-3.5 text-brand-teal shrink-0"></i>
+                      <span x-text="item"></span>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              
+              <!-- Reach Buyers -->
+              <div x-show="service1ActiveTab === 'decisionMakers'" class="animate-fade-in" x-cloak>
+                <div class="text-xs font-mono font-bold uppercase text-brand-teal mb-2.5">Decision Makers Target Matrix:</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <template x-for="(item, idx) in servicesData[0].secondaryItems" :key="idx">
+                    <div class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors">
+                      <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-teal shrink-0"></i>
+                      <span x-text="item"></span>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-brand-navy/60 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400 italic">Seamless connection bypassing gatekeepers</span>
+            <button 
+              @click="openModalWithCta('meeting')"
+              class="text-xs font-semibold text-brand-teal hover:text-white flex items-center gap-1.5 group"
+            >
+              Request Meeting Setup 
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- SERVICE 2: RELATIONSHIP MANAGEMENT -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 2</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Relationship Management</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Unlike traditional lead generation companies, we don't stop after arranging meetings.
+            </p>
+            <div class="space-y-1.5">
+              <p class="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-teal mb-1.5">Continuous care:</p>
+              <template x-for="(item, idx) in servicesData[1].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-xs italic font-medium text-brand-teal">
+              "We don't generate leads. We build relationships."
+            </p>
+          </div>
+        </div>
+
+        <!-- SERVICE 3: PERSONAL BUSINESS ASSISTANCE -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="briefcase" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 3</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Personal Business Assistance</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Dedicated assistance scope so our clients focus on core business discussions while we manage processes.
+            </p>
+            <div class="space-y-1.5">
+              <template x-for="(item, idx) in servicesData[2].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-[11px] text-slate-400">Complete back-office support for your appointments</p>
+          </div>
+        </div>
+
+        <!-- SERVICE 4: MARKET ENTRY CONSULTING -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 4</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Market Entry Consulting</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Navigate high-growth states and launch services safely.
+            </p>
+            <div class="space-y-2 mt-3">
+              <p class="text-[10px] font-mono uppercase text-brand-teal tracking-wider">Target Territories:</p>
+              <template x-for="(item, idx) in servicesData[3].items" :key="idx">
+                <div class="flex items-center gap-1.5 text-xs text-slate-300">
+                  <i data-lucide="corner-down-right" class="w-3 h-3 text-brand-teal shrink-0"></i>
+                  <span x-text="item" :class="item.includes('Expanding') || item.includes('Future') ? 'opacity-60 text-[11px]' : ''"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <span class="text-[11px] bg-brand-navy text-brand-teal px-2 py-1 rounded">Strategy-Driven</span>
+          </div>
+        </div>
+
+        <!-- SERVICE 5: DEALER DEVELOPMENT -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <!-- Custom Building2 representation since Lucide might render standard SVG -->
+              <i data-lucide="building-2" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 5</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Dealer Development</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              We help client companies build extensive local sales networks.
+            </p>
+            <div class="space-y-1.5">
+              <template x-for="(item, idx) in servicesData[4].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-[11px] text-slate-400">Maximize local sales footprint</p>
+          </div>
+        </div>
+
+        <!-- SERVICE 6: FRANCHISE EXPANSION -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="trending-up" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 6</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Franchise Expansion</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Helping brands grow operations through structured franchise programs.
+            </p>
+            <div class="space-y-1.5">
+              <template x-for="(item, idx) in servicesData[5].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-[11px] text-slate-400">Scale brand identity safely</p>
+          </div>
+        </div>
+
+        <!-- SERVICE 7: CHANNEL PARTNERSHIP DEVELOPMENT -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 7</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Channel Partnership</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Establish deep alliances to foster multi-channel acceleration.
+            </p>
+            <div class="space-y-1.5">
+              <template x-for="(item, idx) in servicesData[6].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-[11px] text-slate-400">Synergetic enterprise alliances</p>
+          </div>
+        </div>
+
+        <!-- SERVICE 8: BUSINESS DEVELOPMENT CONSULTING -->
+        <div class="p-6 rounded-2xl bg-brand-blue border border-brand-navy/80 hover:border-brand-teal/20 shadow-xl transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-105 transition-transform">
+              <i data-lucide="target" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] text-brand-teal font-mono uppercase tracking-wider mb-1">Service 8</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Business Dev Consulting</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Advisory support to optimize customer acquisition playbooks.
+            </p>
+            <div class="space-y-1.5">
+              <template x-for="(item, idx) in servicesData[7].items" :key="idx">
+                <div class="flex items-start gap-1.5 text-[11px] text-slate-300">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-teal shrink-0 mt-0.5"></i>
+                  <span x-text="item"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-brand-navy/40">
+            <p class="text-[11px] text-slate-400">Go-To-Market leadership</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Consultation Banner -->
+      <div class="mt-16 bg-gradient-to-r from-brand-navy via-brand-blue to-brand-navy p-8 rounded-2xl border border-brand-navy text-center space-y-4 max-w-4xl mx-auto shadow-xl">
+        <h4 class="font-display text-xl font-bold">Unsure which service meets your expansion objective?</h4>
+        <p class="text-sm text-slate-300 max-w-2xl mx-auto">
+          Our growth specialists can perform a custom review of your business structure and outline a step-by-step connection strategy.
+        </p>
+        <div class="pt-2">
+          <button
+            @click="openModalWithCta('consultation')"
+            class="px-6 py-3 rounded-lg bg-brand-teal text-brand-blue font-bold text-sm hover:bg-brand-teal-hover transition-all duration-300 cursor-pointer"
+          >
+            Get a Free Service Consultation
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPARISON LAYOUT (Why Choose Vinkat Nest) -->
+  <section id="comparison" class="py-24 bg-brand-navy/30 border-y border-brand-navy relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Operational Model Contrast</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          Why Choose Vinkat Nest?
+        </h2>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300 pt-2">
+          We replace temporary lead metrics with institutional pipeline structures. See how our unique approach compares to traditional models.
+        </p>
+      </div>
+
+      <!-- Side by Side Comparison Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- TRADITIONAL SALES MODEL -->
+        <div class="bg-brand-blue/50 rounded-2xl border border-red-500/10 p-8 shadow-xl relative overflow-hidden group">
+          <!-- Bad state color banner -->
+          <div class="absolute top-0 left-0 w-full h-[3px] bg-red-500/30"></div>
+          
+          <div class="flex items-center justify-between mb-8">
+            <div class="space-y-1">
+              <h3 class="font-display text-2xl font-bold text-white">Traditional Sales Model</h3>
+              <p class="text-xs text-red-400">High friction, high volatility</p>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
+              <i data-lucide="x-circle" class="w-6 h-6"></i>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+            Traditional internal hires or standard cold calling services leave you vulnerable to systemic friction, high turnover, and lost pipelines.
+          </p>
+
+          <div class="space-y-4">
+            <template x-for="(metric, idx) in traditionalMetrics" :key="idx">
+              <div class="flex items-start gap-3.5 p-3 rounded-lg bg-brand-navy/30 border border-brand-navy hover:border-red-500/20 transition-all">
+                <div class="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 shrink-0 mt-0.5">
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </div>
+                <span class="text-sm text-slate-300 font-medium" x-text="metric"></span>
+              </div>
+            </template>
+          </div>
+
+          <div class="mt-8 p-4 rounded-xl bg-red-500/5 border border-red-500/10 text-center">
+            <p class="text-xs text-slate-400 italic">
+              Result: Fragmented efforts, wasted budget, lost strategic corporate connections.
+            </p>
+          </div>
+        </div>
+
+        <!-- VINKAT NEST MODEL -->
+        <div class="bg-brand-blue/80 rounded-2xl border border-brand-teal/30 p-8 shadow-xl relative overflow-hidden group">
+          <!-- Pulse glowing brand bar -->
+          <div class="absolute top-0 left-0 w-full h-[4px] bg-brand-teal"></div>
+          
+          <div class="flex items-center justify-between mb-8">
+            <div class="space-y-1">
+              <h3 class="font-display text-2xl font-bold text-white flex items-center gap-2">
+                Vinkat Nest Model
+                <span class="text-[10px] font-mono bg-brand-teal/10 text-brand-teal px-2 py-0.5 rounded uppercase tracking-wider">Better</span>
+              </h3>
+              <p class="text-xs text-brand-teal">Institutionalized relationship continuity</p>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shadow-lg shadow-brand-teal/5">
+              <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-teal"></i>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+            We handle the heavy lifting of connection setup, meeting prep, and follow-up tracking while preserving full control of relationship records.
+          </p>
+
+          <div class="space-y-4">
+            <template x-for="(metric, idx) in vinkatMetrics" :key="idx">
+              <div class="flex items-start gap-3.5 p-3 rounded-lg bg-brand-navy/70 border border-brand-teal/10 hover:border-brand-teal/30 transition-all">
+                <div class="w-5 h-5 rounded-full bg-brand-teal/20 flex items-center justify-center text-brand-teal shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <span class="text-sm text-white font-medium" x-text="metric"></span>
+              </div>
+            </template>
+          </div>
+
+          <div class="mt-8 p-4 rounded-xl bg-brand-teal/5 border border-brand-teal/15 text-center">
+            <p class="text-xs text-brand-teal italic font-semibold">
+              Result: Sustainable, predictable pipelines backed by deep relational continuity.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES Served -->
+  <section id="industries" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Comprehensive Footprint</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          Industries We Serve
+        </h2>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300">
+          Vinkat Nest operates across high-value traditional engineering, manufacturing, construction, and emerging digital infrastructure fields.
+        </p>
+      </div>
+
+      <!-- Interactive Live Search Box -->
+      <div class="max-w-md mx-auto mb-10">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </div>
+          <input
+            type="text"
+            placeholder="Search your industry (e.g., HVAC, SaaS, Manufacturing)..."
+            x-model="industrySearch"
+            class="w-full pl-11 pr-4 py-3 bg-brand-navy/60 border border-brand-navy hover:border-brand-teal/40 focus:border-brand-teal rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none transition-all"
+          />
+          <button
+            x-show="industrySearch"
+            @click="industrySearch = ''"
+            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p x-show="industrySearch" class="text-right text-[11px] text-brand-teal mt-1.5 font-mono animate-fade-in" x-cloak>
+          Showing <span x-text="filteredIndustries.length"></span> of <span x-text="industries.length"></span> industries matched
+        </p>
+      </div>
+
+      <!-- Dynamic Grid -->
+      <div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" x-show="filteredIndustries.length > 0">
+          <template x-for="(industry, index) in filteredIndustries" :key="index">
+            <div class="p-4 bg-brand-navy/40 hover:bg-brand-navy/80 rounded-xl border border-brand-navy hover:border-brand-teal/20 transition-all text-center flex flex-col items-center justify-center gap-2 group cursor-default">
+              <div class="w-8 h-8 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal group-hover:scale-110 transition-transform">
+                <i data-lucide="building" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white" x-text="industry"></span>
+            </div>
+          </template>
+        </div>
+
+        <div class="text-center py-12 bg-brand-navy/20 rounded-xl border border-brand-navy max-w-lg mx-auto" x-show="filteredIndustries.length === 0" x-cloak>
+          <i data-lucide="building" class="w-10 h-10 text-slate-500 mx-auto mb-3"></i>
+          <p class="text-sm font-semibold text-slate-300">No industry matched "<span x-text="industrySearch"></span>"</p>
+          <p class="text-xs text-slate-500 mt-1">But don't worry, we support custom enterprise scopes too!</p>
+          <button
+            @click="industrySearch = ''"
+            class="mt-4 text-xs text-brand-teal hover:underline font-mono"
+          >
+            Reset search
+          </button>
+        </div>
+      </div>
+
+      <!-- Industry categories tags highlight -->
+      <div class="mt-10 flex flex-wrap justify-center gap-2 text-xs text-slate-400">
+        <span class="px-2.5 py-1 rounded-full bg-brand-navy">🏗️ EPC & Architecture</span>
+        <span class="px-2.5 py-1 rounded-full bg-brand-navy">⚙️ Industrial & Mechanical</span>
+        <span class="px-2.5 py-1 rounded-full bg-brand-navy">💻 Software & Tech Platforms</span>
+        <span class="px-2.5 py-1 rounded-full bg-brand-navy">🏢 Retail & Franchise Brands</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ANNUAL PLAN SECTION -->
+  <section id="annual-plan" class="py-24 bg-brand-navy/40 border-y border-brand-navy relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">The Ultimate Partnership</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+          The Vinkat Nest Annual Plan
+        </h2>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300">
+          Designed for companies seeking long-term national growth, regular market consulting, and premium business representation.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-gradient-to-br from-brand-blue to-brand-navy border-2 border-brand-teal/40 rounded-3xl p-8 sm:p-12 shadow-2xl relative">
+        <div class="absolute top-0 right-10 -translate-y-1/2 bg-brand-teal text-brand-blue text-xs font-mono font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+          Most Popular Corporate Choice
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- Plan parameters -->
+          <div class="md:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-bold text-white font-display">Enterprise Expansion Program</h3>
+              <p class="text-sm text-brand-teal font-mono mt-1">Multi-city & Multi-state Coverage</p>
+            </div>
+
+            <div class="space-y-2">
+              <p class="text-xs uppercase font-mono font-bold tracking-wider text-slate-400">Ideal For:</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
+                  PAN-India Expansion
+                </span>
+                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
+                  Enterprise Growth
+                </span>
+                <span class="bg-brand-navy text-xs text-white border border-brand-teal/15 px-3 py-1 rounded-md">
+                  Strategic Market Development
+                </span>
+              </div>
+            </div>
+
+            <div class="h-px bg-brand-navy"></div>
+
+            <div class="space-y-3">
+              <p class="text-xs uppercase font-mono font-bold tracking-wider text-slate-400">What is Included:</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <template x-for="(benefit, index) in annualPlanBenefits" :key="index">
+                  <div class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-brand-teal shrink-0 mt-0.5"></i>
+                    <span class="text-xs text-slate-200" x-text="benefit"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action and highlights block -->
+          <div class="md:col-span-5 bg-brand-navy/70 p-6 rounded-2xl border border-brand-teal/10 text-center space-y-6">
+            <div>
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-widest">Subscription Model</div>
+              <div class="text-3xl font-bold text-white font-display mt-2">Annual Program</div>
+              <p class="text-[11px] text-brand-teal mt-1 font-mono">Custom Quote Based on Territory Scope</p>
+            </div>
+
+            <div class="text-left text-[11px] text-slate-400 leading-relaxed bg-brand-blue/50 p-3 rounded-lg">
+              💡 <strong>Recommendation:</strong> Best suited for hardware manufacturers, SaaS corporations, and real estate developers trying to launch products in 3+ states concurrently.
+            </div>
+
+            <a
+              href="#contact"
+              class="block w-full py-3 px-4 rounded-xl bg-brand-teal hover:bg-brand-teal-hover text-brand-blue font-bold text-sm tracking-wide text-center transition-all shadow-md shadow-brand-teal/10"
+            >
+              Inquire For Custom Quote
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GOVERNMENT TENDER COORDINATION & MEDIATION SERVICES SECTION -->
+  <section id="tender-coordination" class="py-24 bg-brand-navy/40 border-y border-brand-navy relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-teal/5 rounded-full blur-[130px] pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Public Sector Facilitation</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          Government Tender Coordination & Mediation
+        </h2>
+        <div class="h-1 w-16 bg-brand-teal mx-auto mt-4 rounded"></div>
+        <p class="text-slate-300">
+          Supporting contractors, builders, and suppliers with professional liaison, consortium formation, and multi-stakeholder commercial coordination.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+        
+        <!-- Left Box: Overview -->
+        <div class="lg:col-span-5 p-8 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale"><path d="m16 16 3-8 3 8c-.87.65-2.24 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-2.24 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
+            </div>
+            <h3 class="font-display text-xl font-bold text-white">Liaison & Business Mediation</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              <strong>Vinkat Nest Private Limited</strong> facilitates premium business coordination and mediation services for Contractors, Builders, Developers, Manufacturers, and Infrastructure Companies participating in Government and Public Sector projects.
+            </p>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              Navigating large-scale public initiatives requires clean alignment, precise documentation handoffs, and highly coordinated stakeholder communication cycles. We serve as your strategic liaison layer.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-brand-teal/5 border border-brand-teal/10">
+            <div class="flex items-center gap-2.5 text-brand-teal">
+              <i data-lucide="handshake" class="w-4 h-4 shrink-0"></i>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider">Independent Mediation</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1.5">
+              Fostering professional communication pathways across complex consortium networks to reduce systemic friction.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Box: Included services checklist -->
+        <div class="lg:col-span-7 p-8 rounded-2xl bg-brand-blue border border-brand-navy shadow-xl flex flex-col justify-between">
+          <div class="space-y-6">
+            <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-1.5 h-6 bg-brand-teal rounded-full block"></span>
+              Our Facilitation Scope Includes
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <!-- Point 1 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Project Opportunities</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Connecting eligible contractors and developers with high-value project opportunities.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Point 2 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Stakeholder Communication</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Coordinating clear communication channels between project stakeholders during tendering and execution.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Point 3 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Commercial Coordination</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Facilitating business discussions, meetings, and coordination among clients, contractors, and consultants.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Point 4 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Consortium Formation</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Assisting with partnership development, strategic consortium formation, and subcontractor coordination.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Point 5 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Lifecycle Liaison</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Providing comprehensive liaison and coordination support throughout the complete project lifecycle.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Point 6 -->
+              <div class="flex items-start gap-3 group">
+                <div class="w-6 h-6 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-brand-blue transition-colors duration-300 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Relationship Management</h4>
+                  <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                    Supporting continuous relationship management between participants to enable smooth project execution.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-brand-navy">
+            <button
+              @click="openModalWithCta('partner')"
+              class="inline-flex items-center gap-2 text-xs font-bold text-brand-teal hover:text-white transition-colors uppercase tracking-wider font-mono cursor-pointer"
+            >
+              Request Public Sector Partnership Focus
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- HIGH CONTRAST LEGAL DISCLAIMER BOX -->
+      <div class="mt-12 p-6 rounded-2xl bg-brand-blue border border-brand-navy/60 bg-gradient-to-r from-brand-navy/80 to-brand-navy/30">
+        <div class="flex gap-4">
+          <i data-lucide="shield" class="w-5 h-5 text-brand-teal shrink-0 mt-0.5"></i>
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-slate-400 font-mono font-bold block">Legal Notice & Disclosure</span>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-1">
+              Vinkat Nest Private Limited acts solely as an independent business facilitator and coordination service provider. We do not influence or guarantee the award of any government tender or contract. All contract awards are made exclusively by the respective government department or procuring authority in accordance with applicable procurement laws and procedures.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT / APPOINTMENT FORM SECTION -->
+  <section id="contact" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Contact Info Column -->
+        <div class="lg:col-span-5 space-y-8">
+          <div class="space-y-4">
+            <span class="text-xs uppercase tracking-widest text-brand-teal font-mono font-bold">Secure Your Pipeline</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              Schedule an Appointment
+            </h2>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Ready to expand your business footprint across India? Leave your parameters below and our corporate relations team will contact you to schedule an initial consultation or a structured business meeting.
+            </p>
+          </div>
+
+          <!-- Company Info Cards -->
+          <div class="space-y-4">
+            
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-navy/40 border border-brand-navy hover:border-brand-teal/20 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0">
+                <i data-lucide="building" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Corporate Headquarters</h4>
+                <p class="text-xs text-slate-300 mt-1">
+                  Vinkat Nest Pvt Ltd
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5">
+                  New Delhi & major regional connection offices PAN-India
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-navy/40 border border-brand-navy hover:border-brand-teal/20 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Email Communication</h4>
+                <p class="text-xs text-slate-300 mt-1 hover:text-brand-teal transition-colors">
+                  <a href="mailto:vinkatnest@gmail.com">vinkatnest@gmail.com</a>
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5">
+                  Enterprise desk response time: &lt; 1 hour
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-navy/40 border border-brand-navy hover:border-brand-teal/20 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-brand-teal/10 flex items-center justify-center text-brand-teal shrink-0">
+                <i data-lucide="activity" class="w-5 h-5 animate-pulse text-brand-teal"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Strategic Slogan</h4>
+                <p class="text-xs text-slate-300 italic mt-1">
+                  "Connecting Businesses. Building Relationships. Accelerating Growth."
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Verification Stamp -->
+          <div class="p-4 rounded-xl bg-brand-blue border border-brand-navy text-xs text-slate-400 leading-relaxed">
+            🔒 <strong>Privacy Assurance:</strong> Vinkat Nest strictly maintains double non-disclosure contracts (NDA) for all prospective clients, securing proprietary manufacturing parameters, client records, and expansion plans.
+          </div>
+        </div>
+
+        <!-- Right Contact Form Column -->
+        <div class="lg:col-span-7">
+          <div class="bg-brand-navy/60 rounded-3xl p-6 sm:p-10 border border-brand-navy shadow-2xl">
+            
+            <!-- Success receipt -->
+            <div x-show="formSubmitted" class="space-y-6 text-center py-6 animate-fade-in" x-cloak>
+              <div class="w-16 h-16 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal mx-auto mb-4 border border-brand-teal/30">
+                <i data-lucide="thumbs-up" class="w-8 h-8 stroke-[2.5]"></i>
+              </div>
+              
+              <div class="space-y-2">
+                <h3 class="font-display text-2xl font-bold text-white">Appointment Initiated!</h3>
+                <p class="text-xs text-brand-teal font-mono uppercase tracking-widest">Confirmation Token: VN-93928</p>
+                <p class="text-slate-300 text-sm max-w-md mx-auto">
+                  Thank you, <strong x-text="formData.fullName"></strong>. Our enterprise relations coordinator is analyzing your parameters. We will phone you shortly to finalize the meeting setup.
+                </p>
+              </div>
+
+              <!-- Summary Receipt Box -->
+              <div class="bg-brand-blue text-left p-6 rounded-2xl border border-brand-navy text-xs space-y-3.5 max-w-lg mx-auto">
+                <div class="text-slate-400 font-mono uppercase border-b border-brand-navy pb-2 font-bold tracking-wider">
+                  Appointment Parameter Summary
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <span class="text-slate-400">Company:</span>
+                  <span class="text-white font-semibold text-right" x-text="formData.companyName || 'Not Specified'"></span>
+                  
+                  <span class="text-slate-400">Chosen Type:</span>
+                  <span class="text-brand-teal font-semibold text-right" x-text="formData.consultationType"></span>
+
+                  <span class="text-slate-400">Target Industry:</span>
+                  <span class="text-white text-right" x-text="formData.industry || 'General B2B'"></span>
+
+                  <span class="text-slate-400">Preferred Date:</span>
+                  <span class="text-white text-right" x-text="formData.preferredDate || 'Fastest Available'"></span>
+
+                  <span class="text-slate-400">Preferred Time:</span>
+                  <span class="text-white text-right" x-text="formData.preferredTime || 'Any office hours'"></span>
+
+                  <span class="text-slate-400">Phone Contact:</span>
+                  <span class="text-white text-right" x-text="formData.phone"></span>
+                </div>
+                <div class="border-t border-brand-navy pt-2" x-show="formData.message">
+                  <span class="text-slate-400 block mb-1">Your Briefing Notes:</span>
+                  <span class="text-slate-300 italic block bg-brand-navy/60 p-2.5 rounded text-[11px] leading-relaxed" x-text="formData.message"></span>
+                </div>
+              </div>
+
+              <div class="bg-emerald-950/30 p-5 rounded-2xl border border-emerald-500/20 text-center text-xs text-emerald-200 max-w-lg mx-auto space-y-3">
+                <p class="font-bold flex items-center justify-center gap-1.5 text-emerald-400">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  Redirecting to WhatsApp...
+                </p>
+                <p class="text-[11px] text-slate-300">
+                  If your browser blocked the automatic window from opening, click below to proceed with your pre-filled B2B parameters:
+                </p>
+                <a
+                  :href="lastFormWhatsappUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-600/15 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Open WhatsApp Chat Manually
+                </a>
+              </div>
+
+              <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  @click="resetContactForm()"
+                  class="px-5 py-2.5 rounded-lg bg-brand-navy hover:bg-brand-navy/80 text-white font-semibold text-xs border border-brand-teal/20 transition-all cursor-pointer"
+                >
+                  Submit Another Inquiry
+                </button>
+                <button
+                  @click="window.print()"
+                  class="px-5 py-2.5 rounded-lg bg-brand-teal text-brand-blue font-bold text-xs hover:bg-brand-teal-hover transition-all cursor-pointer"
+                >
+                  Print Receipt Setup
+                </button>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form @submit="handleFormSubmit" x-show="!formSubmitted" class="space-y-5">
+              
+              <div class="border-b border-brand-navy pb-3 mb-2">
+                <h3 class="font-display text-lg font-bold text-white">Enterprise Relations Request Form</h3>
+                <p class="text-xs text-slate-400">Fields marked with <span class="text-brand-teal font-bold">*</span> are required for NDA & routing validation.</p>
+              </div>
+
+              <!-- Full Name & Business Email Row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="fullName" class="text-xs font-semibold text-slate-300 flex items-center gap-1">
+                    <i data-lucide="user" class="w-3.5 h-3.5 text-brand-teal"></i>
+                    Full Name <span class="text-brand-teal">*</span>
+                  </label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    required
+                    x-model="formData.fullName"
+                    placeholder="e.g., Rajesh Kumar"
+                    class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div class="space-y-1.5">
+                  <label for="email" class="text-xs font-semibold text-slate-300 flex items-center gap-1">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-teal"></i>
+                    Business Email <span class="text-brand-teal">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    x-model="formData.email"
+                    placeholder="e.g., rajesh@company.com"
+                    class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone Number & Company Name Row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="phone" class="text-xs font-semibold text-slate-300 flex items-center gap-1">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-teal"></i>
+                    Phone Number <span class="text-brand-teal">*</span>
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    required
+                    x-model="formData.phone"
+                    placeholder="e.g., +91 98765 43210"
+                    class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div class="space-y-1.5">
+                  <label for="companyName" class="text-xs font-semibold text-slate-300 flex items-center gap-1">
+                    <i data-lucide="building" class="w-3.5 h-3.5 text-brand-teal"></i>
+                    Company Name
+                  </label>
+                  <input
+                    id="companyName"
+                    type="text"
+                    x-model="formData.companyName"
+                    placeholder="e.g., Prime Engineering Ltd"
+                    class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <!-- Consultation Type Selector -->
+              <div class="space-y-1.5">
+                <label for="consultationType" class="text-xs font-semibold text-slate-300 block">
+                  Desired Action Objective (Consultation Type)
+                </label>
+                <select
+                  id="consultationType"
+                  x-model="formData.consultationType"
+                  class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                >
+                  <option value="Book a Consultation">Book a Consultation (Territory Scope Analysis)</option>
+                  <option value="Schedule a Business Meeting">Schedule a Business Meeting (Direct Appointment Settings)</option>
+                  <option value="Become a Business Partner">Become a Business Partner (Strategic Alliance Setup)</option>
+                </select>
+              </div>
+
+              <!-- Industry Selector & Date Row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="industry" class="text-xs font-semibold text-slate-300 block">
+                    Industry Segment
+                  </label>
+                  <select
+                    id="industry"
+                    x-model="formData.industry"
+                    class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                  >
+                    <option value="">Select industry category...</option>
+                    <template x-for="(ind, idx) in industries" :key="idx">
+                      <option :value="ind" x-text="ind"></option>
+                    </template>
+                  </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="space-y-1.5">
+                    <label for="preferredDate" class="text-xs font-semibold text-slate-300 block">
+                      Pref. Date
+                    </label>
+                    <input
+                      id="preferredDate"
+                      type="date"
+                      x-model="formData.preferredDate"
+                      class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-slate-300 focus:outline-none"
+                    />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="preferredTime" class="text-xs font-semibold text-slate-300 block">
+                      Pref. Time
+                    </label>
+                    <select
+                      id="preferredTime"
+                      x-model="formData.preferredTime"
+                      class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-slate-300 focus:outline-none"
+                    >
+                      <option value="">Any Time</option>
+                      <option value="Morning (9 AM - 12 PM)">Morning</option>
+                      <option value="Afternoon (12 PM - 3 PM)">Afternoon</option>
+                      <option value="Evening (3 PM - 6 PM)">Evening</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Message Notes -->
+              <div class="space-y-1.5">
+                <label for="message" class="text-xs font-semibold text-slate-300 flex items-center gap-1">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-brand-teal"></i>
+                  Expansion Goals & Briefing Notes
+                </label>
+                <textarea
+                  id="message"
+                  rows="3"
+                  x-model="formData.message"
+                  placeholder="Detail your target cities/states, product lines, and any specific decision-makers or dealers you wish to connect with..."
+                  class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2.5 text-xs text-white focus:outline-none transition-colors"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-3.5 rounded-xl bg-brand-teal text-brand-blue font-bold tracking-wide hover:bg-brand-teal-hover transition-all shadow-lg shadow-brand-teal/10 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              >
+                Confirm and Schedule Appointment
+              </button>
+
+              <p class="text-[11px] text-center text-slate-400">
+                🛡️ All information submitted is protected under standard B2B NDA agreements.
+              </p>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REASSURANCE STRIP -->
+  <section class="py-12 bg-brand-navy/60 border-t border-brand-navy/80">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+      <p class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Reliable Framework Strategy</p>
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50">
+        <span class="font-display font-bold text-sm tracking-widest">B2B ALLIANCES</span>
+        <span class="font-display font-bold text-sm tracking-widest">PAN-INDIA CONNECT</span>
+        <span class="font-display font-bold text-sm tracking-widest">RELATIONSHIP FIRST</span>
+        <span class="font-display font-bold text-sm tracking-widest">ISO COMPLIANT</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FOOTER -->
+  <footer class="bg-brand-blue border-t border-brand-navy py-12 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+        
+        <!-- Column 1: Brand details -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-2.5">
+            <!-- Custom SVN Nested Logo Graphic -->
+            <svg class="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" stroke="url(#logo-grad-footer)" stroke-width="3" fill="none"/>
+              <path d="M30 30L50 70L70 30" stroke="#00f5d4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M40 40L50 60L60 40" stroke="#00b4d8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="logo-grad-footer" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00f5d4"/>
+                  <stop offset="1" stop-color="#16223f"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="font-display text-lg font-bold text-white tracking-tight">Vinkat Nest Pvt Ltd</span>
+          </div>
+          <p class="text-[11px] leading-relaxed max-w-sm">
+            India's premier B2B Business Appointment, Relationship Management, and Market Expansion Platform. We connect manufacturers, software providers, and consultants with verified decision-makers to scale sustainable business operations.
+          </p>
+          <p class="text-[10px] text-slate-500">
+            © 2026 Vinkat Nest Pvt Ltd. All rights reserved. Registered Indian Enterprise.
+          </p>
+        </div>
+
+        <!-- Column 2: Quick navigation -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="font-bold text-white uppercase tracking-wider text-[11px]">Platform Sections</h4>
+          <ul class="space-y-2">
+            <li><a href="#about" class="hover:text-brand-teal transition-colors">Who We Are</a></li>
+            <li><a href="#services" class="hover:text-brand-teal transition-colors">Our 8 Core Services</a></li>
+            <li><a href="#comparison" class="hover:text-brand-teal transition-colors">Traditional vs. Vinkat Nest</a></li>
+            <li><a href="#industries" class="hover:text-brand-teal transition-colors">Industries We Serve</a></li>
+            <li><a href="#annual-plan" class="hover:text-brand-teal transition-colors">Annual Expansion Plan</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Contact quick facts -->
+        <div class="md:col-span-4 space-y-3">
+          <h4 class="font-bold text-white uppercase tracking-wider text-[11px]">Enterprise Support</h4>
+          <ul class="space-y-2 leading-relaxed">
+            <li class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-teal shrink-0"></i>
+              <span>General: <a href="mailto:vinkatnest@gmail.com" class="hover:text-brand-teal">vinkatnest@gmail.com</a></span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="activity" class="w-3.5 h-3.5 text-brand-teal shrink-0"></i>
+              <span>Slogan: Connecting Businesses. Building Relationships.</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-teal shrink-0"></i>
+              <span>NDA Encrypted Database Records</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-brand-navy text-center text-[10px] text-slate-500 space-y-2">
+        <p>
+          Disclaimer: Appointments set by Vinkat Nest Pvt Ltd are subject to qualification check of target corporate clients. Consultations are scheduled under strict NDAs.
+        </p>
+        <p class="text-brand-teal/60">
+          Accelerating Enterprise Connections Since Inception • PAN-India Strategic Reach
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- POPUP MODAL FOR CTA BUTTON TRIGGERS -->
+  <div x-show="isBookingModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-blue/80 backdrop-blur-sm animate-fade-in" x-cloak>
+    <div class="relative w-full max-w-lg rounded-2xl bg-brand-navy p-6 sm:p-8 border border-brand-teal/40 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto" @click.away="isBookingModalOpen = false">
+      
+      <!-- Close Button -->
+      <button
+        @click="isBookingModalOpen = false"
+        class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-brand-blue transition-colors focus:outline-none"
+      >
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div>
+        <div class="inline-block px-2.5 py-1 rounded bg-brand-teal/10 text-brand-teal text-[10px] font-mono font-bold uppercase tracking-wider mb-2">
+          <span x-show="modalCtaType === 'consultation'">Book a Consultation</span>
+          <span x-show="modalCtaType === 'meeting'">Schedule a Business Meeting</span>
+          <span x-show="modalCtaType === 'partner'">Become a Business Partner</span>
+        </div>
+        <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+          <span x-show="modalCtaType === 'consultation'">Configure Your Free B2B Consultation</span>
+          <span x-show="modalCtaType === 'meeting'">Request a Dedicated Business Meeting</span>
+          <span x-show="modalCtaType === 'partner'">Apply as a Strategic Business Partner</span>
+        </h3>
+        <p class="text-xs text-slate-300 mt-1">
+          <span x-show="modalCtaType === 'consultation'">We will analyze your product category and outline target buyer personas.</span>
+          <span x-show="modalCtaType === 'meeting'">Set up a focused discussion with our regional representative to initiate expansion.</span>
+          <span x-show="modalCtaType === 'partner'">Collaborate with Vinkat Nest to expand our mutual service ecosystem.</span>
+        </p>
+      </div>
+
+      <!-- Modal Success receipt -->
+      <div x-show="modalSubmitted" class="text-center py-6 space-y-4 animate-fade-in" x-cloak>
+        <div class="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal mx-auto mb-2">
+          <i data-lucide="check" class="w-6 h-6 stroke-[3]"></i>
+        </div>
+        <h4 class="text-lg font-bold text-white">Request Logged!</h4>
+        <p class="text-xs text-slate-300 max-w-xs mx-auto">
+          Thank you, <strong x-text="modalFormData.fullName"></strong>. Your parameters are ready. We will contact you within 1 hour.
+        </p>
+        <div class="bg-brand-blue p-4 rounded-xl text-left text-[11px] space-y-1.5 border border-brand-navy">
+          <p><span class="text-slate-400">Name:</span> <span class="text-white float-right" x-text="modalFormData.fullName"></span></p>
+          <p><span class="text-slate-400">Company:</span> <span class="text-white float-right" x-text="modalFormData.companyName || 'N/A'"></span></p>
+          <p><span class="text-slate-400">Contact Email:</span> <span class="text-white float-right" x-text="modalFormData.email"></span></p>
+          <p><span class="text-slate-400">Preferred Date:</span> <span class="text-brand-teal float-right" x-text="modalFormData.preferredDate || 'Earliest Available'"></span></p>
+        </div>
+
+        <div class="bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 text-center text-[11px] text-emerald-200 space-y-2.5">
+          <p class="font-bold text-emerald-400">
+            Launching WhatsApp chat...
+          </p>
+          <a
+            :href="lastModalWhatsappUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] rounded-lg uppercase tracking-wide transition-all shadow-md hover:scale-[1.02]"
+          >
+            Open WhatsApp Manually
+          </a>
+        </div>
+
+        <button
+          @click="isBookingModalOpen = false"
+          class="w-full mt-2 py-2 bg-brand-navy hover:bg-brand-blue border border-white/10 text-white font-bold rounded-lg text-xs transition-all cursor-pointer"
+        >
+          Close Window
+        </button>
+      </div>
+
+      <!-- Modal Form -->
+      <form @submit="handleModalSubmit" x-show="!modalSubmitted" class="space-y-4">
+        
+        <div class="space-y-1">
+          <label for="modal_fullName" class="text-[11px] font-semibold text-slate-300 block">
+            Your Name <span class="text-brand-teal">*</span>
+          </label>
+          <input
+            id="modal_fullName"
+            type="text"
+            required
+            x-model="modalFormData.fullName"
+            placeholder="e.g., Rajesh Kumar"
+            class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label for="modal_email" class="text-[11px] font-semibold text-slate-300 block">
+              Email <span class="text-brand-teal">*</span>
+            </label>
+            <input
+              id="modal_email"
+              type="email"
+              required
+              x-model="modalFormData.email"
+              placeholder="e.g., rajesh@company.com"
+              class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+            />
+          </div>
+          <div class="space-y-1">
+            <label for="modal_phone" class="text-[11px] font-semibold text-slate-300 block">
+              Phone Number <span class="text-brand-teal">*</span>
+            </label>
+            <input
+              id="modal_phone"
+              type="tel"
+              required
+              x-model="modalFormData.phone"
+              placeholder="e.g., +91 98765 43210"
+              class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label for="modal_companyName" class="text-[11px] font-semibold text-slate-300 block">
+            Company Name
+          </label>
+          <input
+            id="modal_companyName"
+            type="text"
+            x-model="modalFormData.companyName"
+            placeholder="e.g., Prime Engineering Pvt Ltd"
+            class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label for="modal_preferredDate" class="text-[11px] font-semibold text-slate-300 block">
+              Target Meeting Date
+            </label>
+            <input
+              id="modal_preferredDate"
+              type="date"
+              x-model="modalFormData.preferredDate"
+              class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-slate-300 focus:outline-none"
+            />
+          </div>
+          <div class="space-y-1">
+            <label for="modal_preferredTime" class="text-[11px] font-semibold text-slate-300 block">
+              Time Range
+            </label>
+            <input
+              id="modal_preferredTime"
+              type="text"
+              x-model="modalFormData.preferredTime"
+              placeholder="e.g., 10 AM - 12 PM"
+              class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label for="modal_message" class="text-[11px] font-semibold text-slate-300 block">
+            Target States / Expansion Goals
+          </label>
+          <textarea
+            id="modal_message"
+            rows="2"
+            x-model="modalFormData.message"
+            placeholder="State cities/states you are targeting..."
+            class="w-full bg-brand-blue border border-brand-navy focus:border-brand-teal rounded-lg p-2 text-xs text-white focus:outline-none"
+          ></textarea>
+        </div>
+
+        <div class="pt-2 flex gap-3">
+          <button
+            type="button"
+            @click="isBookingModalOpen = false"
+            class="flex-1 py-2.5 rounded-lg bg-brand-blue hover:bg-brand-blue/80 text-slate-300 font-semibold text-xs border border-brand-navy transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="flex-1 py-2.5 rounded-lg bg-brand-teal hover:bg-brand-teal-hover text-brand-blue font-bold text-xs shadow-md transition-all cursor-pointer"
+          >
+            Submit Parameters
+          </button>
+        </div>
+
+        <p class="text-[10px] text-center text-slate-500">
+          By submitting you agree to receive follow-up contact under a mutual NDA.
+        </p>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
